@@ -33,7 +33,7 @@
                     </form>                    
                 </div>
                 <div class="mt-4 text-center">
-                    <p>Have an account? <a  href="login.html">Login</a></p>
+                    <p>Have an account? <a  href="{{route('account.login')}}">Login</a></p>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
     e.preventDefault();
 
     $.ajax({
-        url: '{{ route("Account.processregistration") }}',
+        url: '{{ route("account.processregistration") }}',
         type: 'post',
         data: $("#registrationform").serializeArray(),
         dataType: 'json',
@@ -89,7 +89,7 @@
                 $("#email").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                 $("#Password").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
                 $("#Confirm_Password").removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('');
-                window.location.href = '{{ route("Account.login") }}';
+                window.location.href = '{{ route("account.login") }}';
 
             }
         },
