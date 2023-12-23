@@ -33,9 +33,9 @@ Route::group(['account'], function () {
 
     // authenticated route
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('/account/profile', [AccountController::class, 'profile'])->name('account.profile');
+        Route::get('/profile', [AccountController::class, 'profile'])->name('account.profile');
         Route::put('/update-profile', [AccountController::class, 'updateprofile'])->name('account.updateprofile');
-        Route::get('/account/logout', [AccountController::class, 'logout'])->name('account.logout');
-        
+        Route::get('/logout', [AccountController::class, 'logout'])->name('account.logout');
+        Route::post('/updateprofilepic', [AccountController::class, 'updateprofilepic'])->name('account.updateprofilepic');
     });
 });

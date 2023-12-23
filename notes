@@ -1,0 +1,23 @@
+changes -1
+ // if user logged in==no and it tries  to acess login profile page it will redirect user to login page
+        // return $request->expectsJson() ? null : route('account');
+        return $request->expectsJson() ? null : route('account.login');
+
+changes -2
+     // return redirect(RouteServiceProvider::HOME);
+                // if user logged in ==yes and redirect below page
+                return redirect(route('account.profile'));        
+changes -3
+     change users table
+      $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('image')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('mobile')->nullable();
+            $table->rememberToken();
+            $table->timestamps();  
+changes -4
+        

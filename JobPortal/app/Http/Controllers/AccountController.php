@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Spatie\Backtrace\File;
 
 class AccountController extends Controller
 {
@@ -116,5 +119,45 @@ class AccountController extends Controller
         return redirect()->route('account.login');
         
     }
+    public function updateprofilepic(Request $request){
+        // dd($request->all());
+        // validate image
+        $id = Auth::user()->id;
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image',
+        ]);
+        if ($validator->passes()) {
+            $image = $request->file('image');
+            $ext = $image->getClientOriginalExtension();
+            $imagename = $id . '-' . time() . '-' . $ext;
+            $image->move(public_path('/profile-pic'), $imagename);
+
+            // create a small thumbnail
+            $sourcepath=public_path('/profile-pic/'.$imagename);
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($sourcepath);
+            // crop the best fitting 5:3 (600x360) ratio and resize to 600x360 pixel
+            $image->cover(150, 150);
+            $image->toPng()->save(public_path('/profile-pic/thumb/'.$imagename));
+            // delete old profile pic
+            // File::delete(public_path('/profile-pic/thumb/'.Auth::user()->$image));
+            // File::delete(public_path('/profile-pic/'.Auth::user()->$image));
+            
+            // Update data in user table
+            User::where('id', $id)->update(['image' => $imagename]); // Use => for column value assignment
+            
+            Session::flash('success', 'Profile picture updated successfully!');
+            return response()->json([
+                'status' => true,
+                'errors' => []
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]); 
+        }
+    }
+    
      
 }
