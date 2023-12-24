@@ -19,5 +19,15 @@ changes -3
             $table->string('mobile')->nullable();
             $table->rememberToken();
             $table->timestamps();  
-changes -4
+add -1
+->to add dummy data using factory
+     ->\App\Models\User::factory(10)->create(); ->->to add in database seedder file
+     ->add inside model  ==>
+
+     protected static function newFactory()
+    {
+        return \Database\Factories\JobTypesFactory::new();
+    }
+    ->also define factory file ==> protected $model = JobType::class;
+php artisan make:factory categoryFactory
         
