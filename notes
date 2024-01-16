@@ -30,4 +30,13 @@ add -1
     }
     ->also define factory file ==> protected $model = JobType::class;
 php artisan make:factory categoryFactory
+
+->modify job table in in phpmyadmin 1.part time 2.full time 3.freelance 4.contract 5.remote
         
+->modify jobs table manually (exprience,salary)->null  -
+->to become propper pagination use app->providers->appserviceprovider
+    ->add
+        ->use Illuminate\Pagination\Paginator;
+        ->Paginator::useBootstrapFive();
+
+install laravel debugger file     (composer require barryvdh/laravel-debugbar --dev  )       
