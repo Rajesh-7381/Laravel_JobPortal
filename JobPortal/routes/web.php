@@ -21,6 +21,8 @@ Route::get('/', function () {
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/jobs', [JobController::class, 'index'])->name('jobs');
+Route::get('/jobs/job-detail/{id}', [JobController::class, 'detail'])->name('jobdetails');
+Route::post('/applyJob', [JobController::class, 'applyJob'])->name('applyJob');
 
 
 Route::group(['account'], function () {

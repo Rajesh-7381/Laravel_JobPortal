@@ -25,6 +25,9 @@ class JobFactory extends Factory
             'vacancy'=>rand(1,5),
             'experience'=>rand(1,10),
             'description'=>fake()->text,
+            'description'=>fake()->text,
+            'description'=>fake()->text,
+            'description'=>fake()->text,
             'company_name'=>fake()->name(),
         ];
     }
